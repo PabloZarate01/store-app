@@ -5,8 +5,6 @@ import { PersistGate } from "redux-persist/integration/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { persistor, store } from "@/redux/store";
 const queryClient = new QueryClient();
-
-
 const AppProviders = ({ children }: {
     children: React.ReactNode;
 }) => {
