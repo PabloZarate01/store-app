@@ -40,10 +40,8 @@ export default function ProductsPage() {
         return () => window.removeEventListener('scroll', onScroll);
     }, [hasNextPage, isFetching, fetchNextPage]);
 
-    if (isLoading) return <div>Loading...</div>;
-
     return (
-        <div>
+        <div className='bg-stone-900 p-4'>
             <form onSubmit={handleSearchSubmit} style={{ marginBottom: '1rem' }}>
                 <input
                     type="text"
@@ -54,18 +52,19 @@ export default function ProductsPage() {
                 />
                 <button type="submit">Search</button>
             </form>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
-                {data?.pages.map((page: unknown) =>
-                    (page as IProduct[]).map((product: IProduct) => (
-                        <div key={product.id} style={{ border: '1px solid #ddd', padding: '1rem' }}>
-                            <h2>{product.title}</h2>
-                            <Image src={product.image} alt={product.title} style={{ maxWidth: '100px' }} />
-                            <p>${product.price}</p>
-                        </div>
-                    ))
-                )}
-            </div>
-            {isFetching && <div>Loading more...</div>}
+            {
+                (isLoading || isFetching) ? <div>Loading...</div> : <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
+                    {data?.pages.map((page: unknown) =>
+                        (page as IProduct[]).map((product: IProduct) => (
+                            <div key={product.id} style={{ border: '1px solid #ddd', padding: '1rem' }}>
+                                <h2>{product.title}</h2>
+                                <Image src={product.image || ''} alt={product.title} width={100} height={100} about='x' />
+                                <p>${product.price}</p>
+                            </div>
+                        ))
+                    )}
+                </div>
+            }
         </div>
     );
 }
