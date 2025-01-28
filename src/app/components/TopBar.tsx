@@ -40,12 +40,6 @@ export default function Topbar() {
                     >
                         Products
                     </button>
-                    <button
-                        onClick={() => router.push('/about')}
-                        className="text-base hover:text-gray-400 transition"
-                    >
-                        About Us
-                    </button>
                 </div>
                 <div className="flex items-center gap-6">
                     <button

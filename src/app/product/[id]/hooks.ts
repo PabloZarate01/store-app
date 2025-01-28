@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 export const fetchProductById = async (id: string): Promise<IProduct> => {
-    const { data } = await axios.get(`http://localhost:3001/products/${id}`);
+    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/products/${id}`);
     return data;
 };
 

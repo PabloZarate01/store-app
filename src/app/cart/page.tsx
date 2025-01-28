@@ -15,7 +15,7 @@ export default function CartPage() {
         (total, item) => total + item.price * item.quantity,
         0
     );
-
+    const navigateToProduct = (id: number) => router.push(`product/${id}`);
     return (
         <div className="container mx-auto p-6 bg-stone-50 dark:bg-stone-900 rounded-lg shadow-lg">
             <h1 className="text-3xl font-bold mb-6 text-stone-800 dark:text-stone-100">Your Cart</h1>
@@ -45,15 +45,15 @@ export default function CartPage() {
                             </thead>
                             <tbody>
                                 {cartItems.map((item) => (
-                                    <tr key={item.id} className="border-t border-stone-300 dark:border-stone-700">
+                                    <tr role='button' onClick={(e) => { e.stopPropagation(); navigateToProduct(item.id) }} key={item.id} className="border-t border-stone-300 dark:border-stone-700">
                                         <td className="p-4">
                                             <div className="flex items-center gap-4">
                                                 <Image
                                                     src={item.image}
                                                     alt={item.title}
-                                                    className="bg-white h-16 w-16 rounded-lg object-contain"
-                                                    width={16}
-                                                    height={16}
+                                                    className="bg-white h-16 w-16 p-2 object-contain rounded-lg"
+                                                    width={32}
+                                                    height={32}
                                                 />
                                                 <span className="text-stone-800 dark:text-stone-100">{item.title}</span>
                                             </div>
@@ -64,9 +64,10 @@ export default function CartPage() {
                                         <td className="p-4">
                                             <div className="flex items-center gap-2">
                                                 <button
-                                                    onClick={() =>
-                                                        dispatch(updateQuantity({ id: item.id, quantity: item.quantity - 1 }))
-                                                    }
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        dispatch(updateQuantity({ id: item.id, quantity: item.quantity - 1 }));
+                                                    }}
                                                     className="px-2 py-1 bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded"
                                                     disabled={item.quantity <= 1}
                                                 >
@@ -74,8 +75,10 @@ export default function CartPage() {
                                                 </button>
                                                 <span className="text-stone-800 dark:text-stone-100">{item.quantity}</span>
                                                 <button
-                                                    onClick={() =>
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
                                                         dispatch(updateQuantity({ id: item.id, quantity: item.quantity + 1 }))
+                                                    }
                                                     }
                                                     className="px-2 py-1 bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded"
                                                 >
@@ -88,7 +91,10 @@ export default function CartPage() {
                                         </td>
                                         <td className="p-4">
                                             <button
-                                                onClick={() => dispatch(removeItem(item))}
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    dispatch(removeItem(item))
+                                                }}
                                                 className="text-red-600 hover:text-red-700 transition"
                                             >
                                                 Remove

@@ -1,9 +1,13 @@
 import { Metadata } from 'next';
 import ProductDetails from '@/app/components/ProductDetails';
 import { fetchProductById } from './hooks';
+interface ProductPageParams {
+    params: Promise<{ id: string }>;
+}
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-    const { id } = await params;
+export async function generateMetadata({ params }: ProductPageParams): Promise<Metadata> {
+    const id = (await params).id;
+
     const product = await fetchProductById(id);
 
     if (!product) {
@@ -19,16 +23,20 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
         openGraph: {
             title: product.title,
             description: product.description,
-            images: [product.image],
-            url: `https://localhost:3000/product/${id}`,
+            images: [
+                {
+                    url: product.image,
+                    alt: product.title,
+                },
+            ],
+            url: `${process.env.NEXT_PUBLIC_APP_URL}/product/${id}`,
             type: 'website',
         },
     };
 }
 
-
-export default async function ProductPage({ params }: { params: { id: string } }) {
-    const { id } = await params;
+export default async function ProductPage({ params }: ProductPageParams) {
+    const id = (await params).id;
 
     return <ProductDetails productId={id} />;
 }

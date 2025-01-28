@@ -32,7 +32,7 @@ export const fetchPaginatedProducts = async (
     sort: string
 ): Promise<AxiosResponse<IProduct[]>> => {
     const [sortField, sortOrder] = sort.split('_');
-    return axios.get('http://localhost:3001/products', {
+    return axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/products`, {
         params: {
             title_like: search,
             _sort: `${sortOrder === 'desc' ? '-' : ''}${sortField}` || undefined,
