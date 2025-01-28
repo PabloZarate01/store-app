@@ -3,7 +3,7 @@ import { Star, StarHalf } from 'lucide-react';
 import { theme } from '@/tailwind.theme';
 
 interface RatingStarsProps {
-    rating: number; // Decimal rating value (e.g., 4.3)
+    rating: number;
 }
 
 const RatingStars: React.FC<RatingStarsProps> = ({ rating }) => {
