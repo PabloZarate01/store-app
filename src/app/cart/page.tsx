@@ -51,7 +51,7 @@ export default function CartPage() {
                                                 <Image
                                                     src={item.image}
                                                     alt={item.title}
-                                                    className="w-16 h-16 rounded-lg object-cover"
+                                                    className="bg-white h-16 w-16 rounded-lg object-contain"
                                                     width={16}
                                                     height={16}
                                                 />
@@ -88,7 +88,7 @@ export default function CartPage() {
                                         </td>
                                         <td className="p-4">
                                             <button
-                                                onClick={() => dispatch(removeItem(item.id))}
+                                                onClick={() => dispatch(removeItem(item))}
                                                 className="text-red-600 hover:text-red-700 transition"
                                             >
                                                 Remove
