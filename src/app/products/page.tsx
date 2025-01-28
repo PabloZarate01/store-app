@@ -92,7 +92,7 @@ export default function ProductsPage() {
                     Previous
                 </button>
                 <span>
-                    Page {page} of {data?.headers['x-total-count'] / pageLimit}
+                    Page {page ?? ''} of {Math.round(data?.headers['x-total-count'] / pageLimit) || '1'}
                 </span>
                 <button
                     onClick={() => setPage((prev) => prev + 1)}
