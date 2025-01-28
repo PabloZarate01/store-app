@@ -1,9 +1,10 @@
 import { Metadata } from 'next';
-import ProductDetails from '@/app/components/ProductDetails'; // Componente del cliente
+import ProductDetails from '@/app/components/ProductDetails';
+import { fetchProductById } from './hooks';
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-    const res = await fetch(`http://localhost:3001/products/${params.id}`);
-    const product = await res.json();
+    const { id } = await params;
+    const product = await fetchProductById(id);
 
     if (!product) {
         return {
@@ -19,12 +20,15 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
             title: product.title,
             description: product.description,
             images: [product.image],
-            url: `https://localhost:3000/product/${params.id}`,
+            url: `https://localhost:3000/product/${id}`,
             type: 'website',
         },
     };
 }
 
-export default function ProductPage({ params }: { params: { id: string } }) {
-    return <ProductDetails productId={params.id} />;
+
+export default async function ProductPage({ params }: { params: { id: string } }) {
+    const { id } = await params;
+
+    return <ProductDetails productId={id} />;
 }

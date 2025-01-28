@@ -1,9 +1,11 @@
 import React from 'react';
 import Image from 'next/image';
 import RatingStars from './RatingStars';
+import { useRouter } from 'next/navigation';
 // import useLazyLoad from '@/hooks/useLazyLoad';
 
 interface ProductProps {
+    id: number;
     title: string;
     image: string;
     price: number;
@@ -14,10 +16,15 @@ interface ProductProps {
     };
 }
 
-const ProductCard: React.FC<ProductProps> = ({ title, image, price, description, rating }) => {
+const ProductCard: React.FC<ProductProps> = ({ id, title, image, price, description, rating }) => {
     // const { isVisible, imgRef } = useLazyLoad();
+    const router = useRouter();
     return (
-        <div className="flex flex-col rounded-lg shadow-lg bg-white dark:bg-stone-800 dark:text-stone-200 overflow-hidden transition-colors duration-300">
+        <div role='button' onClick={() => {
+            console.log('clicked');
+            router.push(`product/${id}`);
+
+        }} className="flex flex-col rounded-lg shadow-lg bg-white text-stone-950 dark:bg-stone-800 dark:text-stone-200 overflow-hidden transition-colors duration-300">
             <div className="relative w-full h-64 bg-white">
                 <Image
                     // ref={imgRef}
@@ -26,7 +33,7 @@ const ProductCard: React.FC<ProductProps> = ({ title, image, price, description,
                     fill
                     className="object-contain"
                     priority
-                    // loading='lazy'
+                // loading='lazy'
                 />
             </div>
             <div className="p-4 flex flex-col flex-grow">

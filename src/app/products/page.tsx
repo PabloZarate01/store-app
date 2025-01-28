@@ -35,11 +35,12 @@ export default function ProductsPage() {
     }, [search, sort]);
     useEffect(() => {
         updateQueryParams();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [page, pageLimit, search, sort]);
 
     return (
-        <div className="bg-stone-900 text-white p-4">
-            <h1 className="text-2xl font-bold mb-4">Products</h1>
+        <div className="bg-white dark:bg-stone-900 text-white p-4">
+            <h1 className="text-2xl font-bold mb-4 dark:text-white text-stone-950">Products</h1>
 
             {/* Search and Filters */}
             <div className="flex items-center gap-4 mb-4">
@@ -70,6 +71,7 @@ export default function ProductsPage() {
                 ) : (
                     data?.data?.map((product: IProduct) => (
                         <ProductCard
+                            id={product.id}
                             key={product.id}
                             title={product.title}
                             price={product.price}
@@ -81,11 +83,11 @@ export default function ProductsPage() {
                 )}
             </div>
 
-            <div className="flex justify-between items-center mt-4">
+            <div className="flex justify-between items-center mt-4 text-stone-950 dark:text-white">
                 <button
                     onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
                     disabled={page <= 1}
-                    className="px-4 py-2 bg-gray-700 rounded disabled:opacity-50"
+                    className="px-4 py-2 bg-gray-700 rounded disabled:opacity-50 text-white"
                 >
                     Previous
                 </button>
@@ -95,7 +97,7 @@ export default function ProductsPage() {
                 <button
                     onClick={() => setPage((prev) => prev + 1)}
                     disabled={!data?.headers['x-total-count'] || data?.headers['x-total-count'] / pageLimit <= page}
-                    className="px-4 py-2 bg-gray-700 rounded disabled:opacity-50"
+                    className="px-4 py-2 bg-gray-700 rounded disabled:opacity-50 text-white"
                 >
                     Next
                 </button>
