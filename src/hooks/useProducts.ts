@@ -2,16 +2,6 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import axios, { AxiosResponse } from 'axios';
 import { IProduct } from '@/types/product';
 
-// To be able to search by text, i had to downgrade json server to 0.17
-// interface PaginationResponse<T> {
-//     data: T[];
-//     first: number;
-//     items: number;
-//     last: number;
-//     next: number | null;
-//     pages: number;
-//     prev: number | null;
-// }
 const fetchProducts = async (query: string, page: number): Promise<AxiosResponse<IProduct[]>> => {
     const res = axios.get(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/products?_per_page=5&_page=${page}`

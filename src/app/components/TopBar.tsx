@@ -1,6 +1,6 @@
 'use client';
 
-import { ShoppingCart, Sun, Moon } from 'lucide-react'; // Lucide Icons
+import { ShoppingCart, Sun, Moon } from 'lucide-react';
 import { useSelector } from 'react-redux';
 import { useTheme } from 'next-themes';
 import { RootState } from '@/redux/store';
