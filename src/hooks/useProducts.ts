@@ -2,6 +2,7 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import axios, { AxiosResponse } from 'axios';
 import { IProduct } from '@/types/product';
 
+// To be able to search by text, i had to downgrade json server to 0.17
 // interface PaginationResponse<T> {
 //     data: T[];
 //     first: number;
